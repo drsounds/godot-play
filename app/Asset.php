@@ -80,6 +80,8 @@ class Asset extends Model
      */
     public const SUPPORT_LEVEL_COMMUNITY = 1;
 
+    public const ASSET_TYPE_MAX = 3;
+
     /**
      * The support level for assets submitted on behalf of the Godot project.
      * Will be distinguished on the Web interface.
@@ -87,7 +89,9 @@ class Asset extends Model
     public const SUPPORT_LEVEL_OFFICIAL = 2;
 
     public const SUPPORT_LEVEL_MAX = 3;
-
+    public const ASSET_TYPE_UNKNOWN = 0;
+    public const ASSET_TYPE_ASSET = 1;
+    public const ASSET_TYPE_GAME = 2;
     public const CATEGORY_2D_TOOLS = 0;
     public const CATEGORY_3D_TOOLS = 1;
     public const CATEGORY_SHADERS = 2;
@@ -171,6 +175,10 @@ class Asset extends Model
         'icon_url',
         'versions',
         'previews',
+        'embed_url',
+        'asset_type',
+        'asset_template_id',
+        'asset_template_version_id'
     ];
 
     /**
@@ -255,6 +263,22 @@ class Asset extends Model
     }
 
     /**
+     * Get the user that posted the asset.
+     */
+    public function assetTemplate(): BelongsTo
+    {
+        return $this->belongsTo('App\User', 'asset_template_id');
+    }
+
+    /**
+     * Get the user that posted the asset.
+     */
+    public function assetTemplateVersion(): BelongsTo
+    {
+        return $this->belongsTo('App\User', 'asset_template_version_id');
+    }
+
+    /**
      * Get the asset's previews.
      */
     public function previews(): HasMany
@@ -318,6 +342,24 @@ class Asset extends Model
             return $categoryNames[$category];
         } else {
             throw new \Exception("Invalid category: $category");
+        }
+    }
+
+    /**
+     * Return the given category's name.
+     */
+    public static function getAssetTypeName(int $assetType): string
+    {
+        $assetTypeNames = [
+            self::ASSET_TYPE_UNKNOWN => 'Unknown',
+            self::ASSET_TYPE_ASSET => 'Asset',
+            self::ASSET_TYPE_GAME => 'Game'
+        ];
+
+        if (array_key_exists($assetType, $assetTypeNames)) {
+            return $assetTypeNames[$assetType];
+        } else {
+            throw new \Exception("Invalid assetType: $assetType");
         }
     }
 

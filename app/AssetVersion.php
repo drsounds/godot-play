@@ -71,6 +71,7 @@ class AssetVersion extends Model
         'godot_version',
         'download_url',
         'asset_id',
+        'embed_url'
     ];
 
     /**
@@ -99,6 +100,14 @@ class AssetVersion extends Model
     public function asset(): BelongsTo
     {
         return $this->belongsTo('App\Asset', 'asset_id');
+    }
+
+    /**
+     * Get the user that posted the asset.
+     */
+    public function assetTemplateVersion(): BelongsTo
+    {
+        return $this->belongsTo('App\AssetVersion', 'asset_template_version_id');
     }
 
     /**

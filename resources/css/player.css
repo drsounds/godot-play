@@ -1,0 +1,25 @@
+.player-header {
+  background: black;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+
+.player-header-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.player-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  position: absolute;
+}

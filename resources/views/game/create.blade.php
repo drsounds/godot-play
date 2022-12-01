@@ -88,11 +88,6 @@
 
             <div class="sm:flex sm:justify-between">
               @php
-              $asset_types = [];
-              foreach (range(0, App\Asset::ASSET_TYPE_MAX - 1) as $assetTypeId) {
-                $asset_types[] = App\Asset::getAssetTypeName($assetTypeId);
-              }
-
               $categories = [];
               foreach (range(0, App\Asset::CATEGORY_MAX - 1) as $categoryId) {
                 $categories[] = App\Asset::getCategoryName($categoryId);
@@ -106,16 +101,6 @@
                 'placeholder' => __('Select a category'),
                 'required' => true,
                 'choices' =>  $categories,
-              ])
-              @endcomponent
-              
-              @component('components/form-select', [
-                'name' => 'asset_type',
-                'value' => $editing ? $asset->asset_type : null,
-                'label' => __('Category'),
-                'placeholder' => __('Select asset type'),
-                'required' => true,
-                'choices' =>  $asset_types,
               ])
               @endcomponent
 
@@ -201,18 +186,6 @@
               'autocomplete' => 'off',
             ])
             {{ __('Optional. This URL should point to a page to be used for donations (such as Patreon or GitHub Sponsors).') }}
-            @endcomponent
-
-            @component('components/form-input', [
-              'type' => 'url',
-              'name' => 'embed_url',
-              'value' => $editing ? $asset->embed_url : null,
-              'label' => __('Embed URL'),
-              'placeholder' => 'https://patreon.com/user',
-              'maxlength' => 2000,
-              'autocomplete' => 'off',
-            ])
-            {{ __('Optional. This URL should point to a WebGL build of the game.') }}
             @endcomponent
 
             @if (!$editing)

@@ -5,54 +5,6 @@
 @section('image', count($asset->previews) >= 1 ? $asset->previews[0]->link : '')
 
 @section('content')
-<script>
-
-function onPlayClicked(event) {
-  let embedUrl = event.target.getAttribute('data-embed-url');
-  const playerElm = document.querySelector('#player')
-  if (playerElm) {
-    playerElm.innerHTML = "<iframe src=\"" + embedUrl + "\" style=\"width: 100%; height: 100%;\" frameborder=\"0\"></iframe>";
-  } else {
-    throw "Could not find player element"
-  }
-}
-window.onPlayClicked = onPlayClicked
-</script>
-<style>
-  .player-header {
-  background: black;
-  position: relative;
-  aspect-ratio: 16/9;
-}
-.player-header-bg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-}
-.player-header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  left: 0;
-  top: 0;
-  width: 100%;
-  position: absolute;
-}
-</style>
-@if ($asset->versions->last()->embed_url)
-<div class="player-header" style="background-image: url('{{$asset->icon_url}}'); background-size: contain; background-repeat: no-repeat; background-position: center">
-  <div class="player-header-bg"></div>
-  <div id="player" class="player-header-inner" style="z-index: 100">
-    <button class="button button-success" data-embed-url="{{$asset->versions->last()->embed_url}}" onclick="onPlayClicked(event)"><i class="fas fa-gamepad"></i>&nbsp;{{ __("Play")}}</button>
-  </div>
-</div>
-
-<br />
-@endif
 <div class="container">
 
   @if ($asset->is_archived)
@@ -70,6 +22,7 @@ window.onPlayClicked = onPlayClicked
   {{ __("This asset has been unpublished. It won't be visible by other users until it's made public by an administrator.") }}
   @endcomponent
   @endif
+
   <div class="lg:flex lg:-mx-6">
     <div class="lg:w-1/2 lg:px-6">
       <div class="flex mb-5">

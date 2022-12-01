@@ -53,12 +53,11 @@ $index = $prototype ? '__index__' : $loop->index;
     'autocomplete' => 'off',
   ])
   @endcomponent
-
   @component('components/form-input', [
     'type' => 'url',
     'name' => "versions[$index][embed_url]",
     'value' => $prototype ? null : $asset->versions[$index]->embed_url,
-    'label' => __('Embed URL for Play'),
+    'label' => __('Embed URL to a Godot WebGL build for Play'),
     'placeholder' => 'https://github.com/user/asset/archive/v1.0.0.zip',
     'maxlength' => 2000,
     'autocomplete' => 'off',

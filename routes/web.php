@@ -24,7 +24,7 @@ Route::get('/', [AssetController::class, 'index'])->name('asset.index');
 Route::permanentRedirect('/asset', url('/'));
 Route::get('/asset/submit', [AssetController::class, 'create'])->name('asset.create')->middleware('can:submit-asset');
 Route::post('/asset', [AssetController::class, 'store'])->name('asset.store')->middleware('can:submit-asset');
-
+Route::get('/game/{asset}', [GameController::class, 'show'])->name('game.show')->middleware('can:view-asset,asset');
 Route::get('/asset/{asset}', [AssetController::class, 'show'])->name('asset.show')->middleware('can:view-asset,asset');
 Route::get('/asset/{asset}/edit', [AssetController::class, 'edit'])->name('asset.edit')->middleware('can:edit-asset,asset');
 Route::put('/asset/{asset}', [AssetController::class, 'update'])->name('asset.update')->middleware('can:edit-asset,asset');

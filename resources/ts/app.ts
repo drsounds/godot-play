@@ -16,6 +16,19 @@ function initNavbarToggle(): void {
   });
 }
 
+function onPlayClicked(event : any) : void {
+  let embedUrl = event.target.getAttribute('data-embed-url');
+  const playerElm = document.querySelector('#player')
+  if (playerElm) {
+    playerElm.innerHTML = "<iframe src=\"" + embedUrl + "\" style=\"width: 100%; height: 100%;\" frameborder=\"0\"></iframe>";
+  } else {
+    throw "Could not find player element"
+  }
+}
+
+// @ts-ignore
+window.onPlayClicked = onPlayClicked
+
 /**
  * Initialize the `/` keyboard shortcut for the asset search field.
  */
